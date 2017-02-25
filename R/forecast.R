@@ -11,12 +11,12 @@
 #' forecast(x, sm, sy, em, ey, fort)
 
 forecast <- function(x, sm, sy, em, ey, fort) {
-  ts_dat = ts(mydata, start=c(2009, 1), end=c(2014, 12), frequency = 12)
+  ts_dat = ts(x, start=c(sy, sm), end=c(ey, em), frequency = 12)
   m_tbats =tbats(ts_dat)
-  f_tbats = forecast(m_tbats, h = 1)
+  f_tbats = forecast::forecast(m_tbats, h = fort)
   plot(f_tbats)
   arDat <- auto.arima(ts_dat)
-  arFor = forecast(arDat, h=1)
+  arFor = forecast::forecast(arDat, h=fort)
   plot(arFor)
   ss = data.frame(f_tbats)
   kk = data.frame(arFor)
